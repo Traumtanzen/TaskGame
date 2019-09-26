@@ -10,6 +10,10 @@ namespace TaskGame
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("");
+        }
+        static void Forfeits()
+        {
             List<string> forfeit = new List<string>(20);
             forfeit.Add("Spend the next half an hour tied to the person whose birthday is closest to your own.");
             forfeit.Add("Kiss everyone in the room whose name begins with the same letter as your own.");
@@ -31,7 +35,12 @@ namespace TaskGame
             forfeit.Add("Fashion a newspaper outfit for the nearest male.");
             forfeit.Add("Put lipstick on the nearest man - blindfolded.");
             forfeit.Add("Feed grapes to the nearest member of the opposite sex.");
-        }
 
+            var random = new Random();
+            var list = forfeit;
+            int index = random.Next(list.Count);
+            Console.WriteLine(list[index]);
+            Console.ReadLine();
+        }
     }
 }
