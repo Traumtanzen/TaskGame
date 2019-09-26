@@ -10,9 +10,52 @@ namespace TaskGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello");
+            Console.WriteLine("Hello! Today we're playing forfeits.");
+            Response();
+            Start();
+        }
+        static void Start()
+        {
+            Choice();
+        }
+        static void Choice()
+        {
+            string inputNr = (Console.ReadLine());
+            int actNumber;
+            if (int.TryParse(inputNr, out actNumber))
+            {
+                if (actNumber < 2 || actNumber > 10)
+                {
+                    Console.WriteLine("Sorry, there's too many or too little of you.");
+                    Response();
+                }
+                else if (Enumerable.Range(2, 10).Contains(actNumber))
+                {
+                    Console.WriteLine($"Ok! I see that there are {actNumber} of you. Enter your names, please");
+                    Players();
+                }
+            }
+            else
+            {
+                Console.WriteLine("You should enter a number of players.");
+                Response();
+            }
             Forfeits();
             Console.ReadLine();
+        }
+        static void Response()
+        {
+            Console.WriteLine("We need 2-10 players. How many of you are here now?");
+            Choice();
+        }
+        static void Players()
+        {
+            List<string> player = new List<string>(10);
+            player.Add(Console.ReadLine());
+            var random = new Random();
+            var list = player;
+            int index = random.Next(list.Count);
+            Console.WriteLine(list[index]);
         }
         static void Forfeits()
         {
