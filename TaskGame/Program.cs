@@ -10,7 +10,9 @@ namespace TaskGame
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("");
+            Console.WriteLine("Hello");
+            Forfeits();
+            Console.ReadLine();
         }
         static void Forfeits()
         {
@@ -40,7 +42,6 @@ namespace TaskGame
             var list = forfeit;
             int index = random.Next(list.Count);
             Console.WriteLine(list[index]);
-            Console.ReadLine();
         }
     }
 }
