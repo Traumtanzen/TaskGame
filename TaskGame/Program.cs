@@ -12,52 +12,58 @@ namespace TaskGame
         {
             Console.WriteLine("Hello! Today we're playing forfeits.");
             Response();
-            Start();
-        }
-        static void Start()
-        {
             Choice();
+            //PlayRound();
+            Console.WriteLine("Bye");
+            Console.ReadLine();
         }
-        static void Choice()
+        static int Choice()
         {
             string inputNr = (Console.ReadLine());
-            int actNumber;
-            if (int.TryParse(inputNr, out actNumber))
+            if (int.TryParse(inputNr, out int actNumber) && actNumber < 2 || actNumber > 10)
             {
-                if (actNumber < 2 || actNumber > 10)
-                {
-                    Console.WriteLine("Sorry, there's too many or too little of you.");
-                    Response();
-                }
-                else if (Enumerable.Range(2, 10).Contains(actNumber))
-                {
-                    Console.WriteLine($"Ok! I see that there are {actNumber} of you. Enter your names, please");
-                    Players();
-                }
+                Console.WriteLine("Sorry, there's too many or too little of you.");
+                Response();
+            }
+            else if (Enumerable.Range(2, 10).Contains(actNumber))
+            {
+                Console.WriteLine($"Ok! I see that there are {actNumber} of you. Enter your names, please");
+                Players();
             }
             else
             {
                 Console.WriteLine("You should enter a number of players.");
                 Response();
             }
-            Forfeits();
-            Console.ReadLine();
+            return actNumber;
         }
         static void Response()
         {
             Console.WriteLine("We need 2-10 players. How many of you are here now?");
             Choice();
         }
-        static void Players()
+        static void PlayRound()
         {
-            List<string> player = new List<string>(10);
-            player.Add(Console.ReadLine());
+            string player = Players();
+            string forfeit = Forfeits();
+            Console.WriteLine($"Ok, {player}, here's your task: \n{forfeit}");
+            Console.ReadLine();
+        }
+        static string Players()
+        {
+            int nmbrOfPlayers = Choice();
+            List<string> player = new List<string>(capacity: nmbrOfPlayers);
+            int length = player.Count;
+            for (int counter = 0; counter <= length; counter++)
+            {
+                player.Add(Console.ReadLine());
+            }
             var random = new Random();
             var list = player;
             int index = random.Next(list.Count);
-            Console.WriteLine(list[index]);
+            return (list[index]);
         }
-        static void Forfeits()
+        static string Forfeits()
         {
             List<string> forfeit = new List<string>(20);
             forfeit.Add("Spend the next half an hour tied to the person whose birthday is closest to your own.");
@@ -84,7 +90,7 @@ namespace TaskGame
             var random = new Random();
             var list = forfeit;
             int index = random.Next(list.Count);
-            Console.WriteLine(list[index]);
+            return (list[index]);
         }
     }
 }
