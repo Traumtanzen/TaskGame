@@ -11,9 +11,9 @@ namespace TaskGame
         static void Main(string[] args)
         {
             Console.WriteLine("Hello! Today we're playing forfeits.");
-            Response();
-            Choice();
-            //PlayRound();
+            int x = Response();
+            List<string> players = Players(x);
+            PlayRound(players);
             Console.WriteLine("Bye");
             Console.ReadLine();
         }
@@ -28,7 +28,6 @@ namespace TaskGame
             else if (Enumerable.Range(2, 10).Contains(actNumber))
             {
                 Console.WriteLine($"Ok! I see that there are {actNumber} of you. Enter your names, please");
-                Players();
             }
             else
             {
@@ -37,31 +36,26 @@ namespace TaskGame
             }
             return actNumber;
         }
-        static void Response()
+        static int Response()
         {
             Console.WriteLine("We need 2-10 players. How many of you are here now?");
-            Choice();
+            return Choice();
         }
-        static void PlayRound()
+        static void PlayRound(List<string> players)
         {
-            string player = Players();
             string forfeit = Forfeits();
-            Console.WriteLine($"Ok, {player}, here's your task: \n{forfeit}");
+            Random rnd = new Random();
+            Console.WriteLine($"Ok, {players[rnd.Next(players.Count)]}, here's your task: \n{forfeit}");
             Console.ReadLine();
         }
-        static string Players()
+        static List<string> Players(int playerCount)
         {
-            int nmbrOfPlayers = Choice();
-            List<string> player = new List<string>(capacity: nmbrOfPlayers);
-            int length = player.Count;
-            for (int counter = 0; counter <= length; counter++)
+            List<string> player = new List<string>();
+            for (int counter = 0; counter < playerCount; counter++)
             {
                 player.Add(Console.ReadLine());
             }
-            var random = new Random();
-            var list = player;
-            int index = random.Next(list.Count);
-            return (list[index]);
+            return (player);
         }
         static string Forfeits()
         {
